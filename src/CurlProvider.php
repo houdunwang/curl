@@ -9,9 +9,10 @@
  * '-------------------------------------------------------------------*/
 namespace houdunwang\curl;
 
-use hdphp\kernel\ServiceProvider;
 
-class CurlProvider extends ServiceProvider {
+use houdunwang\framework\build\Provider;
+
+class CurlProvider extends Provider {
 
 	//延迟加载
 	public $defer = true;

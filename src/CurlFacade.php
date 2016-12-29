@@ -9,9 +9,9 @@
  * '-------------------------------------------------------------------*/
 namespace houdunwang\curl;
 
-use hdphp\kernel\ServiceFacade;
+use houdunwang\framework\build\Facade;
 
-class CurlFacade extends ServiceFacade {
+class CurlFacade extends Facade {
 	public static function getFacadeAccessor() {
 		return 'Curl';
 	}

@@ -1,4 +1,7 @@
-<?php
+<?php namespace houdunwang\curl;
+
+use houdunwang\curl\build\Base;
+
 /** .-------------------------------------------------------------------
  * |  Software: [HDCMS framework]
  * |      Site: www.hdcms.com
@@ -7,47 +10,33 @@
  * |    WeChat: aihoudun
  * | Copyright (c) 2012-2019, www.houdunwang.com. All Rights Reserved.
  * '-------------------------------------------------------------------*/
-namespace houdunwang\curl;
-
 class Curl {
-	//请求服务器
-	public function get( $url ) {
-		$ch = curl_init();
-		curl_setopt( $ch, CURLOPT_URL, $url );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
-		curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
-		curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, false );
+	protected $link;
 
-		if ( ! curl_exec( $ch ) ) {
-			throw new \Exception( url_errno( $ch ) );
-			$data = '';
-		} else {
-			$data = curl_multi_getcontent( $ch );
-		}
-		curl_close( $ch );
-
-		return $data;
+	//获取实例
+	protected function driver() {
+		$this->link = new Base();
+		return $this;
 	}
 
-	//提交POST数据
-	public function post( $url, $postData ) {
-		$ch = curl_init();
-		curl_setopt( $ch, CURLOPT_URL, $url );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
-		curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
-		curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, false );
-		curl_setopt( $ch, CURLOPT_TIMEOUT, 30 );
-		curl_setopt( $ch, CURLOPT_POST, 1 );
-		curl_setopt( $ch, CURLOPT_POSTFIELDS, $postData );
-
-		if ( ! curl_exec( $ch ) ) {
-			throw new \Exception( url_errno( $ch ) );
-			$data = '';
-		} else {
-			$data = curl_multi_getcontent( $ch );
+	public function __call( $method, $params ) {
+		if ( ! $this->link ) {
+			$this->driver();
 		}
-		curl_close( $ch );
 
-		return $data;
+		return call_user_func_array( [ $this->link, $method ], $params );
+	}
+
+	public static function single() {
+		static $link = null;
+		if ( is_null( $link ) ) {
+			$link = new static();
+		}
+
+		return $link;
+	}
+
+	public static function __callStatic( $name, $arguments ) {
+		return call_user_func_array( [ static::single(), $name ], $arguments );
 	}
 }
