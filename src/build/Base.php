@@ -39,7 +39,6 @@ class Base {
 		curl_setopt( $ch, CURLOPT_POST, 1 );
 		curl_setopt( $ch, CURLOPT_POSTFIELDS, $postData );
 		if ( curl_exec( $ch ) ===false) {
-			echo curl_error( $ch ) ;
 			throw new \Exception( curl_error( $ch ) );
 			$data = '';
 		} else {
