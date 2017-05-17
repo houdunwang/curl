@@ -1,7 +1,6 @@
 {
   "name": "houdunwang/curl",
   "description": "curl组件提供远程请求操作，支持文件的上传和下载",
-  "type": "project",
   "keywords": [
     "houdunwang",
     "hdphp",

@@ -46,7 +46,15 @@ class Base
         $this->code = $code;
     }
 
-    //请求服务器
+
+    /**
+     * GET提交
+     *
+     * @param $url
+     *
+     * @return string
+     * @throws \Exception
+     */
     public function get($url)
     {
         $ch = curl_init();
@@ -67,15 +75,23 @@ class Base
         return $data;
     }
 
-    //提交POST数据
-    public function post($url, $postData)
+    /**
+     * POST提交
+     *
+     * @param       $url
+     * @param array $postData
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public function post($url, $postData = [])
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
         if (curl_exec($ch) === false) {
