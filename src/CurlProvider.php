@@ -7,22 +7,26 @@
  * |    WeChat: aihoudun
  * | Copyright (c) 2012-2019, www.houdunwang.com. All Rights Reserved.
  * '-------------------------------------------------------------------*/
+
 namespace houdunwang\curl;
 
 
 use houdunwang\framework\build\Provider;
 
-class CurlProvider extends Provider {
+class CurlProvider extends Provider
+{
 
-	//延迟加载
-	public $defer = true;
+    //延迟加载
+    public $defer = true;
 
-	public function boot() {
-	}
+    public function boot()
+    {
+    }
 
-	public function register() {
-		$this->app->single( 'Curl', function ( $app ) {
-			return new Curl( $app );
-		});
-	}
+    public function register()
+    {
+        $this->app->single('Curl', function ($app) {
+            return new Curl($app);
+        });
+    }
 }
