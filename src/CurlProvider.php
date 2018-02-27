@@ -10,12 +10,10 @@
 
 namespace houdunwang\curl;
 
-
 use houdunwang\framework\build\Provider;
 
 class CurlProvider extends Provider
 {
-
     //延迟加载
     public $defer = true;
 
